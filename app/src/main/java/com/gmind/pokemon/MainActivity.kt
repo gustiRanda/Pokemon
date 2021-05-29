@@ -1,5 +1,7 @@
 package com.gmind.pokemon
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -51,9 +53,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 fragment = HomeFragment()
                 title = getString(R.string.app_name)
             }
+//            R.id.nav_favorite -> {
+//                fragment = FavoriteFragment()
+//                title = getString(R.string.menu_favorite)
+//            }
             R.id.nav_favorite -> {
-                fragment = FavoriteFragment()
-                title = getString(R.string.menu_favorite)
+                val uri = Uri.parse("pokemon://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+//                title = getString(R.string.menu_favorite)
             }
             R.id.nav_map -> {
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
