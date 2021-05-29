@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gmind.pokemon.R
+import com.gmind.pokemon.core.R
+import com.gmind.pokemon.core.databinding.ItemListPokemonBinding
 import com.gmind.pokemon.core.domain.model.Pokemon
-import com.gmind.pokemon.databinding.ItemListPokemonBinding
 import java.util.*
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ListViewHolder>() {
