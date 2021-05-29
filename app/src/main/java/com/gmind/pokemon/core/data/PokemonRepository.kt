@@ -11,25 +11,11 @@ import com.gmind.pokemon.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class PokemonRepository private constructor(
+class PokemonRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IPokemonRepository {
-
-    companion object {
-        @Volatile
-        private var instance: PokemonRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): PokemonRepository =
-            instance ?: synchronized(this) {
-                instance ?: PokemonRepository(remoteData, localData, appExecutors)
-            }
-    }
 
     override fun getAllPokemon(): Flow<Resource<List<Pokemon>>> =
         object : NetworkBoundResource<List<Pokemon>, List<PokemonResponse>>() {

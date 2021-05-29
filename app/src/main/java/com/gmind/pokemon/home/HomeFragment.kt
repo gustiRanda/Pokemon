@@ -2,22 +2,21 @@ package com.gmind.pokemon.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmind.pokemon.R
 import com.gmind.pokemon.core.data.Resource
 import com.gmind.pokemon.core.ui.PokemonAdapter
-import com.gmind.pokemon.core.ui.ViewModelFactory
 import com.gmind.pokemon.databinding.FragmentHomeBinding
 import com.gmind.pokemon.detail.DetailPokemonActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -42,9 +41,6 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailPokemonActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             homeViewModel.pokemon.observe(viewLifecycleOwner, { pokemon ->
                 if (pokemon != null) {

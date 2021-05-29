@@ -1,14 +1,13 @@
 package com.gmind.pokemon.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.gmind.pokemon.R
 import com.gmind.pokemon.core.domain.model.Pokemon
-import com.gmind.pokemon.core.ui.ViewModelFactory
 import com.gmind.pokemon.databinding.ActivityDetailPokemonBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailPokemonActivity : AppCompatActivity() {
 
@@ -16,7 +15,7 @@ class DetailPokemonActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private lateinit var detailPokemonViewModel: DetailPokemonViewModel
+    private val detailPokemonViewModel: DetailPokemonViewModel by viewModel()
     private lateinit var binding: ActivityDetailPokemonBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +24,6 @@ class DetailPokemonActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
-        val factory = ViewModelFactory.getInstance(this)
-        detailPokemonViewModel = ViewModelProvider(this, factory)[DetailPokemonViewModel::class.java]
 
         val detailPokemon = intent.getParcelableExtra<Pokemon>(EXTRA_DATA)
         showDetailPokemon(detailPokemon)
