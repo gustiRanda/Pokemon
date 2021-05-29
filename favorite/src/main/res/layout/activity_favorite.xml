@@ -6,19 +6,23 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".FavoriteActivity">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rv_pokemon"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/item_list_pokemon" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pokemon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_list_pokemon" />
 
-<include
-    android:id="@+id/view_empty"
-    layout="@layout/view_empty"
-    android:visibility="gone"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/no_data"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

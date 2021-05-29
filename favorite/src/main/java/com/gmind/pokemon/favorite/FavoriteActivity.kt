@@ -22,7 +22,7 @@ class FavoriteActivity : AppCompatActivity() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        loadKoinModules(favoriteModule)
+        loadKoinModules(favoriteModule)
 
         supportActionBar?.title = "Pokemon Favorite"
 
@@ -35,6 +35,8 @@ class FavoriteActivity : AppCompatActivity() {
 
         favoriteViewModel.favoritePokemon.observe(this, { dataPokemon ->
             pokemonAdapter.setData(dataPokemon)
+            binding.empty.visibility = if (dataPokemon.isNotEmpty()) View.GONE else View.VISIBLE
+
 //            binding.viewEmpty.root.visibility = if (dataPokemon.isNotEmpty()) View.GONE else View.VISIBLE
         })
 
