@@ -7,9 +7,14 @@ import com.gmind.pokemon.core.data.source.remote.network.ApiResponse
 import com.gmind.pokemon.core.data.source.remote.network.ApiService
 import com.gmind.pokemon.core.data.source.remote.response.ListPokemonResponse
 import com.gmind.pokemon.core.data.source.remote.response.PokemonResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class RemoteDataSource private constructor(private val apiService: ApiService) {
     companion object {
@@ -22,29 +27,23 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             }
     }
 
-    fun getAllPokemon(): LiveData<ApiResponse<List<PokemonResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<PokemonResponse>>>()
+    suspend fun getAllPokemon(): Flow<ApiResponse<List<PokemonResponse>>> {
 
         //get data from remote api
-        val client = apiService.getList()
-
-        client.enqueue(object : Callback<ListPokemonResponse> {
-            override fun onResponse(
-                call: Call<ListPokemonResponse>,
-                response: Response<ListPokemonResponse>
-            ) {
-                val dataArray = response.body()?.pokemon
-                resultData.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
+        return flow {
+            try {
+                val response = apiService.getList()
+                val dataArray = response.pokemon
+                if (dataArray.isNotEmpty()){
+                    emit(ApiResponse.Success(response.pokemon))
+                } else{
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception){
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-
-            override fun onFailure(call: Call<ListPokemonResponse>, t: Throwable) {
-                resultData.value = ApiResponse.Error(t.message.toString())
-                Log.e("RemoteDataSource", t.message.toString())
-            }
-
-        })
-
-        return resultData
+        }.flowOn(Dispatchers.IO)
     }
 }
 

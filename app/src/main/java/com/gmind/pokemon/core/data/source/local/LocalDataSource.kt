@@ -1,8 +1,8 @@
 package com.gmind.pokemon.core.data.source.local
 
-import androidx.lifecycle.LiveData
 import com.gmind.pokemon.core.data.source.local.entity.PokemonEntity
 import com.gmind.pokemon.core.data.source.local.room.PokemonDao
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(private val pokemonDao: PokemonDao) {
 
@@ -15,11 +15,11 @@ class LocalDataSource private constructor(private val pokemonDao: PokemonDao) {
             }
     }
 
-    fun getAllPokemon(): LiveData<List<PokemonEntity>> = pokemonDao.getAllPokemon()
+    fun getAllPokemon(): Flow<List<PokemonEntity>> = pokemonDao.getAllPokemon()
 
-    fun getFavoritePokemon(): LiveData<List<PokemonEntity>> = pokemonDao.getFavoritePokemon()
+    fun getFavoritePokemon(): Flow<List<PokemonEntity>> = pokemonDao.getFavoritePokemon()
 
-    fun insertPokemon(pokemonList: List<PokemonEntity>) = pokemonDao.insertPokemon(pokemonList)
+    suspend fun insertPokemon(pokemonList: List<PokemonEntity>) = pokemonDao.insertPokemon(pokemonList)
 
     fun setFavoritePokemon(pokemon: PokemonEntity, newState: Boolean) {
         pokemon.isFavorite = newState

@@ -1,7 +1,5 @@
 package com.gmind.pokemon.core.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.gmind.pokemon.core.data.source.local.LocalDataSource
 import com.gmind.pokemon.core.data.source.remote.RemoteDataSource
 import com.gmind.pokemon.core.data.source.remote.network.ApiResponse
@@ -10,6 +8,8 @@ import com.gmind.pokemon.core.domain.model.Pokemon
 import com.gmind.pokemon.core.domain.repository.IPokemonRepository
 import com.gmind.pokemon.core.utils.AppExecutors
 import com.gmind.pokemon.core.utils.DataMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class PokemonRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -31,10 +31,10 @@ class PokemonRepository private constructor(
             }
     }
 
-    override fun getAllPokemon(): LiveData<Resource<List<Pokemon>>> =
-        object : NetworkBoundResource<List<Pokemon>, List<PokemonResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Pokemon>> {
-                return Transformations.map(localDataSource.getAllPokemon()) {
+    override fun getAllPokemon(): Flow<Resource<List<Pokemon>>> =
+        object : NetworkBoundResource<List<Pokemon>, List<PokemonResponse>>() {
+            override fun loadFromDB(): Flow<List<Pokemon>> {
+                return localDataSource.getAllPokemon().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
@@ -43,18 +43,18 @@ class PokemonRepository private constructor(
 //                data == null || data.isEmpty()
                  true // ganti dengan true jika ingin selalu mengambil data dari internet
 
-            override fun createCall(): LiveData<ApiResponse<List<PokemonResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<PokemonResponse>>> =
                 remoteDataSource.getAllPokemon()
 
-            override fun saveCallResult(data: List<PokemonResponse>) {
+            override suspend fun saveCallResult(data: List<PokemonResponse>) {
                 val pokemonList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertPokemon(pokemonList)
             }
-        }.asLiveData()
+        }.asFLow()
 
-    override fun getFavoritePokemon(): LiveData<List<Pokemon>> {
-        return Transformations.map(localDataSource.getFavoritePokemon()) {
-           DataMapper.mapEntitiesToDomain(it)
+    override fun getFavoritePokemon(): Flow<List<Pokemon>> {
+        return localDataSource.getFavoritePokemon().map {
+            DataMapper.mapEntitiesToDomain(it)
         }
     }
 
