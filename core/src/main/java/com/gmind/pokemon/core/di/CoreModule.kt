@@ -41,18 +41,18 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
-//        val hostname = "raw.githubusercontent.com"
-//        val certificatePinner = CertificatePinner.Builder()
-//            .add(hostname, "sha256/xlDAST56PmiT3SR0WdFOR3dghwJrQ8yXx6JLSqTIRpk=")
-//            .add(hostname, "sha256/k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws=")
-//            .add(hostname, "sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=")
-//            .build()
+        val hostname = "raw.githubusercontent.com"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/xlDAST56PmiT3SR0WdFOR3dghwJrQ8yXx6JLSqTIRpk=")
+            .add(hostname, "sha256/k2v657xBsOVe1PQRwOsHsw3bsGT2VzIqz5K+59sNQws=")
+            .add(hostname, "sha256/WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=")
+            .build()
 
         OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
-//                .certificatePinner(certificatePinner)
+                .certificatePinner(certificatePinner)
                 .build()
     }
 
