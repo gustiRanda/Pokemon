@@ -24,7 +24,7 @@ class FavoriteActivity : AppCompatActivity() {
 
         loadKoinModules(favoriteModule)
 
-        supportActionBar?.title = "Pokemon Favorite"
+        supportActionBar?.title = "Pokemon "
 
         val pokemonAdapter = PokemonAdapter()
         pokemonAdapter.onItemClick = { selectedData ->
