@@ -37,7 +37,6 @@ class FavoriteActivity : AppCompatActivity() {
             pokemonAdapter.setData(dataPokemon)
             binding.empty.visibility = if (dataPokemon.isNotEmpty()) View.GONE else View.VISIBLE
 
-//            binding.viewEmpty.root.visibility = if (dataPokemon.isNotEmpty()) View.GONE else View.VISIBLE
         })
 
         with(binding.rvPokemon) {

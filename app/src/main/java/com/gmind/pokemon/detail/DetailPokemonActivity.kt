@@ -32,7 +32,9 @@ class DetailPokemonActivity : AppCompatActivity() {
     private fun showDetailPokemon(detailPokemon: Pokemon?) {
         detailPokemon?.let {
             supportActionBar?.title = detailPokemon.name
-            binding.content.tvDetailDescription.text = detailPokemon.id
+            binding.content.tvCandyType.text = "Candy Type = ${detailPokemon.candy}"
+            binding.content.tvHeight.text = "Height = ${detailPokemon.height}"
+            binding.content.tvWeight.text = "Weight= ${detailPokemon.weight}"
             Glide.with(this@DetailPokemonActivity)
                 .load(detailPokemon.img)
                 .into(binding.ivDetailImage)

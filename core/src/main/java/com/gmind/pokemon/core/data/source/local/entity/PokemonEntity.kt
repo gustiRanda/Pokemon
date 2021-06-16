@@ -18,6 +18,15 @@ data class PokemonEntity(
     @ColumnInfo(name = "image")
     var image: String,
 
+    @ColumnInfo(name = "candy")
+    var candy: String,
+
+    @ColumnInfo(name = "height")
+    var height: String,
+
+    @ColumnInfo(name = "weight")
+    var weight: String,
+
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false
 )

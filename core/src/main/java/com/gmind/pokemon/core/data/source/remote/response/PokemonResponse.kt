@@ -1,21 +1,23 @@
 package com.gmind.pokemon.core.data.source.remote.response
 
-data class PokemonResponse(
+import com.google.gson.annotations.SerializedName
 
+data class PokemonResponse(
+    @field:SerializedName("candy")
     var candy: String,
-    var candy_count: Int,
-    var egg: String,
+
+    @field:SerializedName("height")
     var height: String,
+
+    @field:SerializedName("id")
     var id: String,
+
+    @field:SerializedName("img")
     var img: String,
-    var multipliers: List<Double>,
+
+    @field:SerializedName("name")
     var name: String,
-    var next_evolution: List<NextEvolution>,
-    var num: String,
-    var prev_evolution: List<PrevEvolution>,
-    var spawn_chance: Double,
-    var spawn_time: String,
-    var type: List<String>,
-    var weaknesses: List<String>,
+
+    @field:SerializedName("weight")
     var weight: String
 )

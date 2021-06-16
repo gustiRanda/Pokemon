@@ -12,6 +12,9 @@ object DataMapper {
                 pokemonId = it.id,
                 name = it.name,
                 image = it.img,
+                candy = it.candy,
+                height = it.height,
+                weight = it.weight,
                 isFavorite = false
             )
             pokemonList.add(pokemon)
@@ -25,6 +28,9 @@ object DataMapper {
                 id = it.pokemonId,
                 name = it.name,
                 img = it.image,
+                candy = it.candy,
+                height = it.height,
+                weight = it.weight,
                 isFavorite = it.isFavorite
             )
         }
@@ -33,6 +39,9 @@ object DataMapper {
         pokemonId = input.id,
         name = input.name,
         image = input.img,
+        candy = input.candy,
+        height = input.height,
+        weight = input.weight,
         isFavorite = input.isFavorite
     )
 }

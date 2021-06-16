@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_favorite -> {
                 val uri = Uri.parse("pokemon://favorite")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
-//                title = getString(R.string.menu_favorite)
+                title = getString(R.string.menu_favorite)
             }
-            R.id.nav_map -> {
+            R.id.nav_setting -> {
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
             }
         }
